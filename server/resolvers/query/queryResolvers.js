@@ -1,35 +1,36 @@
 const authenticate = require('../authenticate')
+const axios = require("axios")
 
 module.exports = {
   Query: {
-    async test(parent, _, {postgres}, info){
-      const getUsers = await postgres.query('SELECT * FROM boilerplate.users')
-      return getUsers.rows[0].fullname
+    async getUser(parent, input, { req, app, postgres }){
+        const userId = authenticate(app, req);
+
+          const user = {
+          text: "SELECT * FROM space_explorer.users WHERE id = $1",
+          values: [userId]
+        }
+
+        const userGotten = await postgres.query(user)
+
+        return userGotten.rows[0]
+    },
+    async getAllLaunches(parent, input, { req, app, postgres }) {
+       const allLaunches = await axios.get("https://api.spacexdata.com/v2/launches?limit=50&filter=flight_number,mission_name,launch_year,launch_date_utc")
+
+       return allLaunches.data
+
+    },
+
+    async getLaunch(parent, input, { req, app, postgres }) {
+
+        let flight_number = input.flight_number
+
+        const oneLaunch = await axios.get("https://api.spacexdata.com/v2/launches?flight_number="+flight_number+"&filter=flight_number,mission_name,launch_year,launch_date_utc")
+
+        console.log(oneLaunch.data)
+
+       return oneLaunch.data[0]
     }
-    // async user(parent, { id }, { app, req, postgres }, info) {
-    //   authenticate(app, req)
-    //   const findUserQuery = {
-    //     text: 'SELECT * FROM boilerplate.users WHERE id = $1',
-    //     values: [id],
-    //   }
-    //   const user = await postgres.query(findUserQuery)
-
-    //   if (user.rows.length < 1) {
-    //     throw 'User does not exist'
-    //   }
-    //   return user.rows[0]
-    // },
-    // async getAllUsers(parent, _, { app, req, postgres }, info) {
-    //   authenticate(app, req)
-    //   const findUserQuery = {
-    //     text: 'SELECT * FROM boilerplate.users',        
-    //   }
-    //   const user = await postgres.query(findUserQuery)
-
-    //   if (user.rows.length < 1) {
-    //     throw 'No users'
-    //   }
-    //   return user.rows
-    // },
   },
 }

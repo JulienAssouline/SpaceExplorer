@@ -17,7 +17,10 @@ exports.up = pgm => {
     CREATE TABLE "space_explorer"."bookings"(
       "id" SERIAL PRIMARY KEY,
       "user_id" INT,
-      "amount" INT
+      "flight_number" INT,
+      "amount" INT,
+      "date_booked" DATE DEFAULT CURRENT_DATE,
+      "status" TEXT
     )
     `)
 

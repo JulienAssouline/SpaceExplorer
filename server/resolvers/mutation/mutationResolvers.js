@@ -58,6 +58,8 @@ module.exports = {
 
         const user_id = authenticate(app, req)
         let amount = input.amount
+        let flight_number = input.flight_number
+        let status = "booked"
 
        ////// BONUS:
 
@@ -73,8 +75,8 @@ module.exports = {
        // console.log(user.rows[0])
 
        const insertUser = {
-        text: "INSERT INTO space_explorer.bookings (user_id, amount) VALUES ($1, $2) RETURNING *",
-        values: [user_id, amount]
+        text: "INSERT INTO space_explorer.bookings (user_id, amount, flight_number, status) VALUES ($1, $2, $3, $4) RETURNING *",
+        values: [user_id, amount, flight_number, status]
        }
 
         const result = await postgres.query(insertUser)
