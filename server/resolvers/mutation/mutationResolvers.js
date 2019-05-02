@@ -37,20 +37,45 @@ module.exports = {
 
     async logIn(parent, input, { req, app, postgres }) {
 
-      let loginEmail = input.email
-      let password = input.password
+      try {
+        let loginEmail = input.email
+        let password = input.password
 
-      const userPassword = {
-           text: "SELECT id, email, date_created, password FROM space_explorer.users WHERE email = $1",
-           values: [loginEmail]
-         }
-        const loggedIn = await postgres.query(userPassword)
+        const userPassword = {
+             text: "SELECT id, email, date_created, password FROM space_explorer.users WHERE email = $1",
+             values: [loginEmail]
+           }
+          const loggedIn = await postgres.query(userPassword)
 
-        console.log(loggedIn.rows)
+          console.log(loggedIn.rows)
 
-        return {
-          message: "logged in"
-        }
+          let myjwttoken = await jwt.sign({
+            email: loggedIn.rows[0].email,
+            id: loggedIn.rows[0].id,
+            exp: Math.floor(Date.now() / 1000) + (1000*1000),
+
+          }, "secret");
+          // console.log("my jwt", myjwttoken)
+
+          req.res.cookie("bazaar_app", myjwttoken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production"
+          })
+
+          console.log(loggedIn.rows)
+
+          if (loggedIn.rows.length === 0) throw "email or password is incorrect"
+
+
+          return {
+            message: "logged in"
+          }
+      }
+      catch(error) {
+        console.log(error)
+        throw "email or password is incorrect"
+      }
+
 
       },
 
