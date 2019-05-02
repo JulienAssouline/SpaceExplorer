@@ -27,11 +27,33 @@ module.exports = {
         values: [email, hashedpassword, fullname, username, status, country]
       }
 
-     let result = await postgres.query(newUserInsert)
+      try {
 
-     return {
-      message: "yes"
-     }
+        let result = await postgres.query(newUserInsert)
+
+        let myjwttoken = await jwt.sign({
+          email: result.rows[0].email,
+          id: result.rows[0].id,
+          exp: Math.floor(Date.now() / 1000) + (1000*1000),
+
+        }, "secret");
+        console.log("my jwt", myjwttoken)
+
+        req.res.cookie("bazaar_app", myjwttoken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production"
+        })
+
+        return {
+         message: "yes"
+        }
+      }
+      catch(error) {
+        console.log(error)
+
+        throw "Email is already taken"
+      }
+
 
     },
 
@@ -47,7 +69,7 @@ module.exports = {
            }
           const loggedIn = await postgres.query(userPassword)
 
-          console.log(loggedIn.rows)
+          const passwordCheck = await bcrypt.compare(password, loggedIn.rows[0].password)
 
           let myjwttoken = await jwt.sign({
             email: loggedIn.rows[0].email,
@@ -55,17 +77,13 @@ module.exports = {
             exp: Math.floor(Date.now() / 1000) + (1000*1000),
 
           }, "secret");
-          // console.log("my jwt", myjwttoken)
 
           req.res.cookie("bazaar_app", myjwttoken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production"
           })
 
-          console.log(loggedIn.rows)
-
-          if (loggedIn.rows.length === 0) throw "email or password is incorrect"
-
+          if (loggedIn.rows.length === 0 || passwordCheck === false) throw "email or password is incorrect"
 
           return {
             message: "logged in"
