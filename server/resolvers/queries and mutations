@@ -4,3 +4,43 @@ mutation {
   }
 }
 
+
+ query {
+   getUser {
+     id
+     email
+     fullname
+     username
+     status
+     country
+   }
+ }
+
+query {
+  getLaunch(flight_number: 10) {
+    flight_number
+    mission_name
+    launch_year
+  }
+}
+
+ # query {
+ #        getUser {
+ #          id
+ #          launches {
+ #            flight_number
+ #             mission_name
+ #            launch_year
+ #          }
+ #        }
+ #      }
+
+
+ query {
+   getAllLaunches{
+     flight_number
+     mission_name
+     launch_year
+     launch_date_utc
+   }
+ }

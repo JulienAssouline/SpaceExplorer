@@ -26,13 +26,14 @@ module.exports = gql`
     mission_name: String,
     launch_year: Int,
     launch_date_utc: Date,
+    mission_patch_small: String,
 
   }
 
   type Mutation {
     signUp(email: String!, password: String!, fullname: String, username: String, status: String, country: String, date_created: Date): SignupResponse!
     logIn(email: String!, password: String!): LoginResponse!
-    Bookings(flight_number: Int!, amount: Int): BookingsResponse!
+    Bookings(flight_number: Int, amount: Int): BookingsResponse!
   }
 
   type SignupResponse {

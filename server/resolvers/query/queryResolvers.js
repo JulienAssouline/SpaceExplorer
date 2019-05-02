@@ -16,7 +16,12 @@ module.exports = {
         return userGotten.rows[0]
     },
     async getAllLaunches(parent, input, { req, app, postgres }) {
-       const allLaunches = await axios.get("https://api.spacexdata.com/v2/launches?limit=50&filter=flight_number,mission_name,launch_year,launch_date_utc")
+       const allLaunches = await axios.get("https://api.spacexdata.com/v2/launches?limit=50&filter=flight_number,mission_name,launch_year,launch_date_utc,links")
+       // console.log(allLaunches.data[0].links.mission_patch_small)
+
+       allLaunches.data.forEach(d => {
+           d.mission_patch_small = d.links.mission_patch_small
+       })
 
        return allLaunches.data
 
