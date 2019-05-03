@@ -8,6 +8,7 @@ import LogIn from "./components/LogIn"
 import Home from "./components/Home"
 import LandingPage from "./components/LandingPage"
 import LaunchDetails from "./components/LaunchDetails"
+import Background from "./components/Background"
 
 
 
@@ -20,7 +21,10 @@ function App() {
 
     <div className="App">
       <Router>
+      <div className="wrapper">
+        <Route path="/" exact component = {Background} />
         <Route path="/" exact component = {LandingPage} />
+      </div>
         <Route path = "/launch-details:flightnumber" exact component = {LaunchDetails} />
         <Route path="/signup" exact component = {SignUp} />
         <Route path="/login" exact component = {LogIn} />

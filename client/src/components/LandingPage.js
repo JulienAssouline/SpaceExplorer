@@ -1,7 +1,8 @@
 import React from "react"
 import { Query } from "react-apollo"
 import gql from "graphql-tag";
-import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
+
 
 
 // import { timeFormat } from "d3-time-format"
@@ -12,7 +13,7 @@ import Button from '@material-ui/core/Button'
 function LandingPage(props) {
 
   return (
-    <div>
+    <div className = "landing-page">
     <h1> hello</h1>
     <Query query = {gql`
         query {
@@ -31,16 +32,31 @@ function LandingPage(props) {
           if(errors) return <div> Errors {JSON.stringify(errors)} </div>
           console.log(data)
             return (
+              <div>
+                <TextField
+                          id= "email"
+                          label= {"Search"}
+                          value = {"value"}
+                          className = "search app"
+                          // onChange={handleChange}
+                          // onBlur = {handleBlur}
+                          type = "text"
+                          margin="normal"
+                          />
+
+               {
                 data.getAllLaunches.map((d,i) =>
-                  <div onClick = {() => {
-                    props.history.push("/launch-details"+d.flight_number)
-                  }}
-                  key = {i}
-                  className = "all-launches"
-                  >
-                  <img src={d.mission_patch_small} alt = "logo" width="100%" height="100%"/>
-                  </div>
-                )
+                                 <div onClick = {() => {
+                                   props.history.push("/launch-details"+d.flight_number)
+                                 }}
+                                 key = {i}
+                                 className = "all-launches"
+                                 >
+                                 <img src={d.mission_patch_small} alt = "logo" width="100%" height="100%"/>
+                                 </div>
+                               )
+             }
+                </div>
               )
 
          }
