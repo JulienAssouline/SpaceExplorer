@@ -15,49 +15,68 @@ function Background(props) {
         data.push({
             x:  Math.random() * canvas.current.width,
             y: Math.random() * canvas.current.height,
-            r: Math.floor(Math.random() * Math.floor(3))
+            r: Math.random() * (2 - 0),
         });
     }
 
+    var random_array = [];
+    var len_random = 30
 
-    function drawCircles(data) {
+    for (var i = 0; i < len_random; i++) {
+        random_array.push(Math.floor(Math.random() * Math.floor(400)));
+    }
+
+    function reduceCircleRadius(d, velocity) {
+      let radius = (d.r - velocity)
+      let radius2 = (radius - radius)
+
+      // console.log(radius - radius + radius2)
+      radius = radius < 0 ? (0) : radius
+      return radius
+    }
+
+    function increaseCircleRadis(d, velocity) {
 
 
+      let radius = (d.r + velocity)
+      radius = radius < 0 ? radius : 0
+      return radius
+    }
 
-      const body = document.querySelector("body")
-
-      console.log(body.clientHeight)
+    function drawCircles(data, velocity) {
 
       context.save();
       context.fillStyle = "black";
       context.fillRect(0, 0, document.body.clientWidth, document.body.clientHeight);
 
-      console.log(data)
 
-
-      let opacity = 0;
-
-      const duration = 1000; // ms
-      const step = 1000; // ms
-
-
-      data.forEach(d => {
-
-       opacity += (step / duration);
+      data.forEach((d,i) => {
 
        context.globalAlpha = 1
 
         context.strokeStyle = "white"
 
-        // context.clearRect(0, 0, document.body.clientWidth, document.body.clientHeight)
-
-
+       if (random_array.includes(i)) {
+              context.fillStyle = "white"
+              context.beginPath();
+              context.arc(d.x, d.y, reduceCircleRadius(d, velocity), 0, Math.PI * 2);
+              context.stroke();
+              context.fill()
+              context.restore();
+      } else {
         context.fillStyle = "white"
         context.beginPath();
         context.arc(d.x, d.y, d.r, 0, Math.PI * 2);
         context.stroke();
         context.fill()
         context.restore();
+      }
+
+        // let radius = (d.r - velocity)
+
+        // radius = radius < 0 ? 0 : radius
+
+
 
 
       })
@@ -66,13 +85,19 @@ function Background(props) {
     }
 
 
+    let velocity = 0.5
 
-    drawCircles(data)
+    drawCircles(data, velocity)
 
-    // setInterval(function(){
-    //   drawCircles(data);
-    //   // console.log(incr++)
-    // }, 1000);
+
+    setInterval(function(){
+      drawCircles(data, velocity);
+      if (velocity > 3) {
+        velocity = -velocity
+      }
+      velocity += 0.5
+      console.log(velocity)
+    }, 200);
 
 
 

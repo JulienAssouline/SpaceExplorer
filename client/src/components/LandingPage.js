@@ -3,14 +3,23 @@ import { Query } from "react-apollo"
 import gql from "graphql-tag";
 import TextField from '@material-ui/core/TextField'
 
+import ACTIONS from "../module/actions"
+import { connect } from "react-redux"
 
 
-// import { timeFormat } from "d3-time-format"
+  const mapStateToProps = state => ({
+    userEmail: state.userEmail,
+    username: state.username
+  })
 
-// let formatTime = timeFormat("%Y-%m-%d")
+  const mapDispatchToProps = dispatch => ({
+    textInputChange: data => dispatch(ACTIONS.textInputChange(data))
+  })
 
 
 function LandingPage(props) {
+
+  console.log("checking signup props", props)
 
   return (
     <div className = "landing-page">
@@ -30,19 +39,21 @@ function LandingPage(props) {
          ({loading, errors, data}) => {
           if(loading) return <div> Loading</div>
           if(errors) return <div> Errors {JSON.stringify(errors)} </div>
-          console.log(data)
             return (
               <div>
-                <TextField
+{
+  <TextField
                           id= "email"
                           label= {"Search"}
-                          value = {"value"}
+                          value = {props.userEmail}
                           className = "search app"
-                          // onChange={handleChange}
+                          onChange={(e) => props.textInputChange(e.target.value)}
                           // onBlur = {handleBlur}
                           type = "text"
                           margin="normal"
+                          variant="outlined"
                           />
+                        }
 
                {
                 data.getAllLaunches.map((d,i) =>
@@ -67,4 +78,4 @@ function LandingPage(props) {
   )
 }
 
-export default LandingPage
+export default connect(mapStateToProps, mapDispatchToProps)(LandingPage)
