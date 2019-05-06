@@ -2,7 +2,6 @@
   text-align: center;
 }
 
-
 .form {
   display: flex;
   flex-flow: column nowrap;
@@ -17,6 +16,9 @@
   width: 100%;
 }
 
+canvas {
+   overflow: hidden;
+}
 
 .submit.button {
   margin-right: 5px;
@@ -33,15 +35,41 @@
 }
 
 .wrapper{
-    position:relative;
-    width: 100%;
-  height: 100%;
+  overflow: hidden;
 }
 .canvas,.landing-page{
     position:absolute; top:0px; left:0px;
     width: 100%;
     height: 100%;
 }
+
+.get-started {
+  position:absolute; top:0px; left:0px;
+    width: 100%;
+    height: 100%;
+}
+
+.form-started {
+  display: flex;
+  flex-flow: column nowrap;
+  background-color: grey;
+  width: 40%;
+  margin: auto;
+/*  box-shadow: 0 0 10px #ccc;
+*/  border: 1px solid black;
+  padding: 30px;
+}
+
+.form {
+  display: flex;
+  flex-flow: column nowrap;
+  width: 40%;
+  margin: 0 auto;
+/*  box-shadow: 0 0 10px #ccc;
+*/  border: 1px solid black;
+  padding: 30px;
+}
+
 
 
 .search.app {

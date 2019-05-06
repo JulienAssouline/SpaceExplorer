@@ -8,9 +8,10 @@ import LogIn from "./components/LogIn"
 import Home from "./components/Home"
 import LandingPage from "./components/LandingPage"
 import LaunchDetails from "./components/LaunchDetails"
-import Background from "./components/Background"
+import Background2 from "./components/Background2"
 import { Provider as ReduxProvider } from "react-redux"
 import configureStore from "./module/store"
+import GetStarted from "./components/GetStarted"
 
 
 
@@ -30,9 +31,10 @@ function App() {
 
       <div className="App">
         <Router>
+          <Route path="/" component = {Background2} />
+          <Route path="/" exact component = {GetStarted} />
         <div className="wrapper">
-          <Route path="/" exact component = {Background} />
-          <Route path="/" exact component = {LandingPage} />
+          <Route path="/landing-page" exact component = {LandingPage} />
         </div>
           <Route path = "/launch-details:flightnumber" exact component = {LaunchDetails} />
           <Route path="/signup" exact component = {SignUp} />
