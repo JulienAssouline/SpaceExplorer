@@ -62,6 +62,8 @@ canvas {
 
 .form {
   display: flex;
+    background-color: grey;
+
   flex-flow: column nowrap;
   width: 40%;
   margin: 0 auto;

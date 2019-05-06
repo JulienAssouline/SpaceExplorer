@@ -19,7 +19,7 @@ const SIGN_UP_MUTATION = gql`
 function SignUp(props) {
   return (
     <div id = "signup">
-    <div className="wrapper">
+    <div className="get-started">
     <Mutation
       mutation = {SIGN_UP_MUTATION}
       onError = {(error) => {

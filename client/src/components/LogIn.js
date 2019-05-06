@@ -21,6 +21,7 @@ function LogIn(props) {
 
   return (
     <div className = "login-form">
+    <div className="get-started">
     <br />
     <Mutation
       mutation = {LOG_IN_MUTATION}
@@ -112,6 +113,7 @@ function LogIn(props) {
           )
       }
     </Mutation>
+    </div>
     </div>
   )
 }

@@ -18,6 +18,7 @@ function LaunchDetails(props) {
 
   return (
     <div>
+    <div className="get-started">
     <h1> LaunchDetails </h1>
     <Mutation
       mutation = {BOOKINGS_MUTATION}
@@ -74,7 +75,7 @@ function LaunchDetails(props) {
             if(errors) return <div> Errors {JSON.stringify(errors)} </div>
             console.log(data.getLaunch)
             return (
-                <div>
+                <div className = "form">
                   <p> {data.getLaunch.flight_number} </p>
                   <p> {data.getLaunch.launch_year} </p>
                   <p> {data.getLaunch.mission_name} </p>
@@ -97,6 +98,7 @@ function LaunchDetails(props) {
         )
       }
     </Mutation>
+    </div>
     </div>
 
 
