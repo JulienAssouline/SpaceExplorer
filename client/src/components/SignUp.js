@@ -14,8 +14,6 @@ const SIGN_UP_MUTATION = gql`
    }
 `
 
-
-
 function SignUp(props) {
   return (
     <div id = "signup">
@@ -51,7 +49,7 @@ function SignUp(props) {
               }
               >
                 {
-                   props => {
+                   propsFormik => {
                         const {
                           values,
                           touched,
@@ -63,20 +61,23 @@ function SignUp(props) {
                           handleSubmit,
                           handleReset,
 
-                        } = props;
+                        } = propsFormik;
+
+                        console.log(props.classes)
                         return (
                           <Form className = "form" onSubmit={handleSubmit}>
-                            <h1> Sign Up Form </h1>
+                            <h1 className = "header"> Sign Up Form </h1>
                               <TextField
                                 id= "username"
                                 label= "User Name"
                                 value = {values.username}
-                                className = "signup-username"
+                                className= "signup-username"
                                 onChange={handleChange}
                                 onBlur = {handleBlur}
                                 type = "text"
                                 margin="normal"
                                 />
+
                               <TextField
                                 id= "fullname"
                                 label= "Full Name"

@@ -7,9 +7,36 @@
   flex-flow: column nowrap;
   width: 40%;
   margin: 0 auto;
-/*  box-shadow: 0 0 10px #ccc;
-*/  border: 1px solid black;
   padding: 30px;
+}
+
+.header {
+  color: white;
+}
+
+.all-launches {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: left;
+  align-items: center;
+  width: 30%;
+  margin: 10px auto;
+  background-color: #2e4b4f;
+  cursor: pointer;
+  border: 1px solid white;
+  border-radius: 10px;
+/*  box-shadow: 0 0 10px #ccc;
+*/
+  padding: 10px;
+}
+
+.image {
+  width: 30%;
+  padding-right: 20px;
+}
+
+.mission_name {
+  color: white;
 }
 
 .buttons_group{
@@ -22,16 +49,6 @@ canvas {
 
 .submit.button {
   margin-right: 5px;
-}
-
-.all-launches {
-  cursor: pointer;
-  border: 1px solid black;
-  display: flex;
-  flex-flow: column nowrap;
-  width: 40%;
-  margin: 0 auto;
-  margin-bottom: 10px;
 }
 
 .wrapper{
@@ -52,24 +69,40 @@ canvas {
 .form-started {
   display: flex;
   flex-flow: column nowrap;
-  background-color: grey;
+  background-color: #2e4b4f;
   width: 40%;
   margin: auto;
-/*  box-shadow: 0 0 10px #ccc;
-*/  border: 1px solid black;
   padding: 30px;
+  height: 600px;
 }
 
 .form {
   display: flex;
-    background-color: grey;
-
+    background-color: #2e4b4f;
   flex-flow: column nowrap;
   width: 40%;
   margin: 0 auto;
-/*  box-shadow: 0 0 10px #ccc;
-*/  border: 1px solid black;
   padding: 30px;
+}
+
+.form label[data-shrink]{
+  color: white;
+}
+
+.form input[value]{
+  color: white;
+}
+
+.form input[aria-invalid]{
+  border-bottom: 2px solid white;
+}
+
+.form input[aria-invalid]::after{
+  border-bottom: 2px solid white;
+}
+
+.form div::after{
+  border-bottom: 2px solid white;
 }
 
 
@@ -77,3 +110,9 @@ canvas {
 .search.app {
   background-color: white;
 }
+
+
+
+
+
+

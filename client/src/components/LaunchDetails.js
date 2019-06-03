@@ -11,6 +11,8 @@ const BOOKINGS_MUTATION = gql`
   }
 `
 
+
+
 let loggedin;
 
 function LaunchDetails(props) {
@@ -65,6 +67,9 @@ function LaunchDetails(props) {
               flight_number
               mission_name
               launch_year
+              launch_date_utc
+              mission_patch_small
+              details
               }
             }
           `}
@@ -79,6 +84,8 @@ function LaunchDetails(props) {
                   <p> {data.getLaunch.flight_number} </p>
                   <p> {data.getLaunch.launch_year} </p>
                   <p> {data.getLaunch.mission_name} </p>
+                  <p className = "details"> {data.getLaunch.details} </p>
+
                   <Button
                      onClick = {() => {
                       Bookings({variables: { flight_number: data.getLaunch.flight_number} })

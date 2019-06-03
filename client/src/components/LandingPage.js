@@ -1,7 +1,8 @@
 import React from "react"
-import { Query } from "react-apollo"
 import gql from "graphql-tag";
 import TextField from '@material-ui/core/TextField'
+import { useQuery } from 'react-apollo-hooks';
+
 
 import ACTIONS from "../module/actions"
 import { connect } from "react-redux"
@@ -16,15 +17,7 @@ import { connect } from "react-redux"
     textInputChange: data => dispatch(ACTIONS.textInputChange(data))
   })
 
-
-function LandingPage(props) {
-
-  console.log("checking signup props", props)
-
-  return (
-    <div className = "landing-page">
-    <h1> hello</h1>
-    <Query query = {gql`
+  const GET_ALL_LAUNCHES = gql`
         query {
            getAllLaunches{
              flight_number
@@ -32,49 +25,44 @@ function LandingPage(props) {
              launch_year
              launch_date_utc
              mission_patch_small
+             details
            }
-         }
-      `}>
-      {
-         ({loading, errors, data}) => {
-          if(loading) return <div> Loading</div>
-          if(errors) return <div> Errors {JSON.stringify(errors)} </div>
-            return (
-              <div>
-{
-  <TextField
-                          id= "email"
-                          label= {"Search"}
-                          value = {props.userEmail}
-                          className = "search app"
-                          onChange={(e) => props.textInputChange(e.target.value)}
-                          // onBlur = {handleBlur}
-                          type = "text"
-                          margin="normal"
-                          variant="outlined"
-                          />
-                        }
+         }`;
 
-               {
-                data.getAllLaunches.map((d,i) =>
-                                 <div onClick = {() => {
-                                   props.history.push("/launch-details"+d.flight_number)
-                                 }}
-                                 key = {i}
-                                 className = "all-launches"
-                                 >
-                                 <img src={d.mission_patch_small} alt = "logo" width="100%" height="100%"/>
-                                 </div>
-                               )
-             }
-                </div>
-              )
 
-         }
-      }
 
-    </Query>
-    </div>
+function LandingPage(props) {
+
+  console.log("checking signup props", props)
+
+  const {data, error, loading} = useQuery(GET_ALL_LAUNCHES)
+
+  if (loading) {
+      return <div>Loading...</div>;
+    };
+    if (error) {
+      return <div>Error! {error.message}</div>;
+    };
+
+  return (
+    <div className = "landing-page">
+      <div>
+        <h1 className = "header"> View launch details </h1>
+         {
+          data.getAllLaunches.map((d,i) =>
+               <div onClick = {() => {
+                 props.history.push("/launch-details"+d.flight_number)
+               }}
+               key = {i}
+               className = "all-launches"
+               >
+               <img className ="image" src={d.mission_patch_small} alt = "logo" width="10%" height="10%"/>
+                   <h2 className = "mission_name"> {d.mission_name} </h2>
+               </div>
+             )
+          }
+        </div>
+      </div>
   )
 }
 

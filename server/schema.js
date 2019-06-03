@@ -27,6 +27,7 @@ module.exports = gql`
     launch_year: Int,
     launch_date_utc: Date,
     mission_patch_small: String,
+    details: String
 
   }
 

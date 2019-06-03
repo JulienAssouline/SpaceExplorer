@@ -3,7 +3,7 @@ import './App.css';
 import SignUp from "./components/SignUp"
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import apolloClient from "./apolloClient"
-import { ApolloProvider} from "react-apollo"
+import { ApolloProvider } from "react-apollo-hooks";
 import LogIn from "./components/LogIn"
 import Home from "./components/Home"
 import LandingPage from "./components/LandingPage"

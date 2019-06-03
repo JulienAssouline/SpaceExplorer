@@ -2,16 +2,13 @@ import React from "react"
 import Button from '@material-ui/core/Button'
 import { ReactComponent as Logo } from './project.svg';
 
-
-
-
 function GetStarted(props) {
   return (
   <div className="wrapper">
    <div className = "get-started">
     <div className = "form-started">
       <Logo />
-      <h1> Get Ready For Your Next Great Journey With SpaceX </h1>
+      <h1 className = "header"> Get Ready For Your Next Great Journey With SpaceX </h1>
       <Button
         onClick = {() => props.history.push("/landing-page")}
          variant="contained"

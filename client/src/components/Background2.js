@@ -11,8 +11,8 @@ function Background2(props) {
     useLayoutEffect(() => {
       const context = canvas.current.getContext("2d");
 
-      context.width = window.innerWidth
-      context.height = window.innerHeight
+      context.width = document.body.clientWidth
+      context.height = document.body.clientHeight
 
 
       var data = [];
@@ -47,7 +47,7 @@ function Background2(props) {
       function drawCircles(data, velocity) {
 
               context.save();
-              context.fillStyle = "#111";
+              context.fillStyle = "#2e4b4f";
               // #29313b
               context.fillRect(0, 0, document.body.clientWidth, 10000);
 
@@ -107,7 +107,6 @@ function Background2(props) {
   return (
     <canvas ref={canvas} width={window.innerWidth} height={window.innerHeight} style = {{fill: "black"}}>
           <LandingPage />
-
     </canvas>
   )
 
