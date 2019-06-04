@@ -1,12 +1,8 @@
 import React from "react"
-import gql from "graphql-tag";
-import TextField from '@material-ui/core/TextField'
 import { useQuery } from 'react-apollo-hooks';
-
-
 import ACTIONS from "../module/actions"
 import { connect } from "react-redux"
-
+import {GET_ALL_LAUNCHES} from "../gql/queries"
 
   const mapStateToProps = state => ({
     userEmail: state.userEmail,
@@ -17,23 +13,7 @@ import { connect } from "react-redux"
     textInputChange: data => dispatch(ACTIONS.textInputChange(data))
   })
 
-  const GET_ALL_LAUNCHES = gql`
-        query {
-           getAllLaunches{
-             flight_number
-             mission_name
-             launch_year
-             launch_date_utc
-             mission_patch_small
-             details
-           }
-         }`;
-
-
-
 function LandingPage(props) {
-
-  console.log("checking signup props", props)
 
   const {data, error, loading} = useQuery(GET_ALL_LAUNCHES)
 

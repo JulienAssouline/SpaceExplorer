@@ -1,114 +1,45 @@
 import React from "react"
-import { Query, Mutation } from "react-apollo"
-import gql from "graphql-tag";
 import Button from '@material-ui/core/Button'
-
-const BOOKINGS_MUTATION = gql`
-  mutation bookLaunchMutation($flight_number: Int, $amount: Int) {
-    Bookings(flight_number: $flight_number, amount: $amount) {
-      message
-    }
-  }
-`
-
-
-
-let loggedin;
+import { useQuery, useMutation } from 'react-apollo-hooks';
+import {GET_USER, GET_LAUNCH} from "../gql/queries"
+import {BOOKINGS_MUTATION} from "../gql/mutations"
 
 function LaunchDetails(props) {
   let flight_number = props.match.params.flightnumber
+  flight_number = +flight_number
+
+  const {data: user_data} = useQuery(GET_USER);
+  const {data: launch_data, error, loading} = useQuery(GET_LAUNCH, {variables: { flight_number: flight_number } });
+
+  const makeBooking = useMutation(BOOKINGS_MUTATION);
+
+   if (loading) {
+      return <div>Loading...</div>;
+    };
+    if (error) {
+      return <div>Error! {error.message}</div>;
+    };
 
   return (
-    <div>
     <div className="get-started">
     <h1> LaunchDetails </h1>
-    <Mutation
-      mutation = {BOOKINGS_MUTATION}
-      onError = {(error) => {
-        console.log(error)
-      }}
-      onCompleted = {(data) => {
-        console.log("Data: ", data)
-        alert("booked!")
-      }}
-    >
-    {
-      (Bookings, {dataMutation}) => (
-      <div>
-      <Query query = {gql`
-            query {
-               getUser {
-                 id
-                 email
-                 fullname
-                 username
-                 status
-                 country
-               }
-             }
-          `}>
-          {
-            ({loading, errors, data}) => {
-              if(loading) return <div> Loading</div>
-              if(errors) return <div> Errors {JSON.stringify(errors)} </div>
-
-                loggedin = data
-              console.log(data)
-
-              return (
-                null
-                )
+      <div className = "form">
+        <p> {launch_data.getLaunch.flight_number} </p>
+        <p> {launch_data.getLaunch.launch_year} </p>
+        <p> {launch_data.getLaunch.mission_name} </p>
+        <p className = "details"> {launch_data.getLaunch.details} </p>
+        <Button
+           onClick = {() => {
+            makeBooking({ variables: {flight_number: launch_data.getLaunch.flight_number}})
+           if (user_data === undefined) props.history.push("/login")
             }
           }
-        </Query>
-        <Query query = {gql`
-          query {
-            getLaunch(flight_number: ${flight_number}) {
-              flight_number
-              mission_name
-              launch_year
-              launch_date_utc
-              mission_patch_small
-              details
-              }
-            }
-          `}
-        >
-        {
-          ({loading, errors, data}) =>  {
-            if(loading) return <div> Loading</div>
-            if(errors) return <div> Errors {JSON.stringify(errors)} </div>
-            console.log(data.getLaunch)
-            return (
-                <div className = "form">
-                  <p> {data.getLaunch.flight_number} </p>
-                  <p> {data.getLaunch.launch_year} </p>
-                  <p> {data.getLaunch.mission_name} </p>
-                  <p className = "details"> {data.getLaunch.details} </p>
-
-                  <Button
-                     onClick = {() => {
-                      Bookings({variables: { flight_number: data.getLaunch.flight_number} })
-                      if (loggedin === undefined) props.history.push("/login")
-                      }
-                    }
-                     variant="contained"
-                     type="submit"
-                     color="primary"
-                     className = "buy item button"> Book Trip </Button>
-                </div>
-              )
-          }
-        }
-        </Query>
-        </div>
-        )
-      }
-    </Mutation>
+           variant="contained"
+           type="submit"
+           color="primary"
+           className = "buy item button"> Book Trip </Button>
+      </div>
     </div>
-    </div>
-
-
   )
 }
 
