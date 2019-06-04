@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField'
 import { useMutation } from 'react-apollo-hooks';
 import { loginValidation } from "./validationSchemas"
 import {LOG_IN_MUTATION} from "../gql/mutations"
+import LoginSignup from "./LoginSignup"
 
 function LogIn(props) {
   const [error, setError] = useState("");
@@ -14,6 +15,7 @@ function LogIn(props) {
   return (
     <div className = "login-form">
     <div className="get-started">
+    <LoginSignup data = {props} />
     <br />
       <Formik
               initialValues = {{ email: "", password: ""}}
@@ -37,7 +39,7 @@ function LogIn(props) {
               }
               >
               {
-                props => {
+                Formikprops => {
                    const {
                      values,
                      touched,
@@ -46,23 +48,10 @@ function LogIn(props) {
                      handleBlur,
                      handleSubmit,
 
-                   } = props;
+                   } = Formikprops;
                   return (
                        <Form className = "form" onSubmit={handleSubmit}>
-                          <div className = "form-button-container" >
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            className="login button"
-                            type="submit"
-                            margin = "normal"> Login </Button>
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            className="signup button"
-                            type="submit"
-                            margin = "normal"> Signup </Button>
-                          </div>
+                          <h2 className = "signup-or-login"> Login </h2>
                           <TextField
                           required
                           error={errors.email && touched.email}
@@ -89,15 +78,20 @@ function LogIn(props) {
                           />
                           <p className = "password-check"> {error} </p>
                           <br/>
-                          <Button
-                          variant="contained"
-                          color="primary"
-                          className="submit button"
-                          type="submit"
-                          margin = "normal"
-                          >
-                            Submit
-                          </Button>
+                          <div className = "submit-button-container">
+                            <Button
+                            variant="contained"
+                            color="primary"
+                            className="submit button"
+                            type="submit"
+                            margin = "normal"
+                            >
+                              Submit
+                            </Button>
+                            <p className="member-status"
+                              onClick = {() => {props.history.push("/signup")}}
+                            > I'm not a member </p>
+                          </div>
 
                        </Form>
                     )

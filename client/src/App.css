@@ -49,6 +49,17 @@ canvas {
 
 .submit.button {
   margin-right: 5px;
+
+  background-color: #55c4b9;
+  height: 6vh;
+  border-radius: 25px;
+  width: 30%;
+}
+
+.reset.button {
+  border-radius: 25px;
+  width: 30%;
+  height: 6vh;
 }
 
 .wrapper{
@@ -84,10 +95,10 @@ canvas {
   width: 40%;
   padding: 30px;
   justify-content: center;
-  height: 80vh;
   border: 1px solid white;
   border-radius: 10px;
-}
+/*  height: 100%;
+*/}
 
 .form label[data-shrink]{
   color: white;
@@ -120,26 +131,72 @@ canvas {
 }
 
 .login.button {
-  background-color: #2e4b4f;
   color: white;
   width: 50%;
-  border: 1px solid white;
-  margin-right: 10px;
+/*  border: 1px solid white;
+*/  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+}
+
+.login.button.active {
+  background-color: #55c4b9;
+}
+
+.login.button.inactive {
+  background-color: #334459;
 }
 
 .signup.button {
-  background-color: #2e4b4f;
   color: white;
   width: 50%;
-  border: 1px solid white;
+/*  border: 1px solid white;
+*/  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
 }
+
+.signup.button.active {
+  background-color: #55c4b9;
+}
+
+.signup.button.inactive {
+  background-color: #334459;
+}
+
+
 
 .form-button-container {
   display: flex;
   flex-flow: row;
-/*  margin-bottom: auto;
-*/  align-items: stretch;
+/*  position:absolute;
+*/  margin-top:10px;
+  margin-left: auto;
+  margin-right: 50px;
+  width: 20%;
+}
 
+.signup-or-login {
+  font-weight: normal;
+  margin-right: auto;
+  color: white;
+}
+
+.submit-button-container {
+  display: flex;
+  flex-flow: row;
+}
+
+
+
+.member-status {
+  color: #5a6779;
+  border-bottom: 1px solid #55c4b9;
+  padding-bottom: 3px;
+  margin-left: 30px;
+  cursor: pointer;
+}
+
+.member-status:hover {
+  color: black;
 }
 
 
