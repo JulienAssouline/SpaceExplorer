@@ -1,173 +1,157 @@
-import React from "react"
+import React, { useState}  from "react"
 import { Formik, Form } from "formik"
 import { signupValidation } from "./validationSchemas"
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
-import { Mutation } from "react-apollo";
-import gql from "graphql-tag";
+import { useMutation } from 'react-apollo-hooks';
+import {SIGN_UP_MUTATION} from "../gql/mutations"
 
-const SIGN_UP_MUTATION = gql`
-  mutation signUpMutation($email: String!, $fullname: String!, $username: String!, $password: String!, $country: String!) {
-     signUp(email: $email, fullname: $fullname username: $username, password: $password, country: $country) {
-      message
-     }
-   }
-`
 
 function SignUp(props) {
+  const [error, setError] = useState("") ;
+
+  const signUp = useMutation(SIGN_UP_MUTATION);
+
   return (
     <div id = "signup">
-    <div className="get-started">
-    <Mutation
-      mutation = {SIGN_UP_MUTATION}
-      onError = {(error) => {
-        console.log(error)
-      }}
-      onCompleted = {(data) => {
-        console.log("Data: ", data)
-        // alert("signed up!")
-        props.history.push("/home")
-      }}
-    >
-      { (signUp, {data}) => (
-          <Formik
-              initialValues = {{ email: "", password: "", username: "", fullname: "", country: "", confirmpassword: '' }}
-              onSubmit={(values, {setSubmitting}) => {
-                 signUp({variables: {
-                  email: values.email,
-                  fullname: values.fullname,
-                  country: values.country,
-                  username: values.username,
-                  password: values.password
+      <div className="get-started">
+        <Formik
+            initialValues = {{ email: "", password: "", username: "", fullname: "", country: "", confirmpassword: '' }}
+            onSubmit={async (values, {setSubmitting}) => {
+              try {
+                  let result = await signUp({variables: {
+                    email: values.email,
+                    fullname: values.fullname,
+                    country: values.country,
+                    username: values.username,
+                    password: values.password
+                  }})
+                  if (result !== undefined) {props.history.push("/home")}
+                  setSubmitting(false)
+                  alert(JSON.stringify(values, null, 2))
+                } catch(error) {
+                  setError("Email is already taken")
                 }
-              })
-                setSubmitting(false)
-                alert(JSON.stringify(values, null, 2))
-              }}
-              validationSchema = {
-                signupValidation
-              }
-              >
-                {
-                   propsFormik => {
-                        const {
-                          values,
-                          touched,
-                          errors,
-                          dirty,
-                          isSubmitting,
-                          handleChange,
-                          handleBlur,
-                          handleSubmit,
-                          handleReset,
-
-                        } = propsFormik;
-
-                        console.log(props.classes)
-                        return (
-                          <Form className = "form" onSubmit={handleSubmit}>
-                            <h1 className = "header"> Sign Up Form </h1>
-                              <TextField
-                                id= "username"
-                                label= "User Name"
-                                value = {values.username}
-                                className= "signup-username"
-                                onChange={handleChange}
-                                onBlur = {handleBlur}
-                                type = "text"
-                                margin="normal"
-                                />
-
-                              <TextField
-                                id= "fullname"
-                                label= "Full Name"
-                                value = {values.fullname}
-                                className = "signup-fullname"
-                                onChange={handleChange}
-                                onBlur = {handleBlur}
-                                type = "text"
-                                margin="normal"
-                                />
-                              <TextField
-                                id= "country"
-                                label= "Country"
-                                value = {values.country}
-                                className = "signup-country"
-                                onChange={handleChange}
-                                onBlur = {handleBlur}
-                                type = "text"
-                                margin="normal"
-                                />
-                              <TextField
-                                required
-                                error={errors.email && touched.email}
-                                id= "email"
-                                label= {(errors.email && touched.email) ? errors.email : "Email"}
-                                value = {values.email}
-                                className = "signup-email"
-                                onChange={handleChange}
-                                onBlur = {handleBlur}
-                                type = "text"
-                                margin="normal"
-                                />
-                              <TextField
-                                required
-                                error={errors.password && touched.password}
-                                className = "signup-password"
-                                label= {(errors.password && touched.password) ? "Password is required!" : "Password"}
-                                id = "password"
-                                type="password"
-                                onChange={handleChange}
-                                onBlur = {handleBlur}
-                                value = {values.password}
-                                margin="normal"
-                              />
-                              <TextField
-                                required
-                                error={errors.confirmpassword && touched.confirmpassword}
-                                className = "signup-confirmpassword"
-                                type="password"
-                                label= {(errors.confirmpassword && touched.confirmpassword) ? "Confirm Password is required!" : "Confirm Password"}
-                                value = {values.confirmpassword}
-                                id = "confirmpassword"
-                                onChange = {handleChange}
-                                onBlur = {handleBlur}
-                                margin="normal"
-                              />
-                                <label>{touched.confirmpassword && values.confirmpassword !== values.password && <div className="invalid-feedback">{"Passwords don't match!"}</div>}
-                              </label>
-
-                            <br/>
-                            <div className = "buttons_group">
-                              <Button
-                                variant="contained"
-                                color="primary"
-                                className="submit button"
-                                type="submit"
-                                disabled={values.confirmpassword !== values.password || isSubmitting}> Submit
-                                </Button>
-                              <Button
-                                variant="contained"
-                                color="secondary"
-                                type="button"
-                                className="reset button"
-                                onClick={handleReset}
-                                disabled={!dirty || isSubmitting}
-                              >
-                                Reset
-                              </Button>
-                            </div>
-
-                          </Form>
-                          )
-                      }
-                    }
-
-                  </Formik>
-                )
+            }}
+            validationSchema = {
+              signupValidation
             }
-      </Mutation>
-    </div>
+            >
+              {
+                 propsFormik => {
+                      const {
+                        values,
+                        touched,
+                        errors,
+                        dirty,
+                        isSubmitting,
+                        handleChange,
+                        handleBlur,
+                        handleSubmit,
+                        handleReset,
+
+                      } = propsFormik;
+
+                      return (
+                        <Form className = "form" onSubmit={handleSubmit}>
+                          <h1 className = "header"> Sign Up Form </h1>
+                            <TextField
+                              id= "username"
+                              label= "User Name"
+                              value = {values.username}
+                              className= "signup-username"
+                              onChange={handleChange}
+                              onBlur = {handleBlur}
+                              type = "text"
+                              margin="normal"
+                              />
+
+                            <TextField
+                              id= "fullname"
+                              label= "Full Name"
+                              value = {values.fullname}
+                              className = "signup-fullname"
+                              onChange={handleChange}
+                              onBlur = {handleBlur}
+                              type = "text"
+                              margin="normal"
+                              />
+                            <TextField
+                              id= "country"
+                              label= "Country"
+                              value = {values.country}
+                              className = "signup-country"
+                              onChange={handleChange}
+                              onBlur = {handleBlur}
+                              type = "text"
+                              margin="normal"
+                              />
+                            <TextField
+                              required
+                              error={errors.email && touched.email}
+                              id= "email"
+                              label= {(errors.email && touched.email) ? errors.email : "Email"}
+                              value = {values.email}
+                              className = "signup-email"
+                              onChange={handleChange}
+                              onBlur = {handleBlur}
+                              type = "text"
+                              margin="normal"
+                              />
+                            <TextField
+                              required
+                              error={errors.password && touched.password}
+                              className = "signup-password"
+                              label= {(errors.password && touched.password) ? "Password is required!" : "Password"}
+                              id = "password"
+                              type="password"
+                              onChange={handleChange}
+                              onBlur = {handleBlur}
+                              value = {values.password}
+                              margin="normal"
+                            />
+                            <TextField
+                              required
+                              error={errors.confirmpassword && touched.confirmpassword}
+                              className = "signup-confirmpassword"
+                              type="password"
+                              label= {(errors.confirmpassword && touched.confirmpassword) ? "Confirm Password is required!" : "Confirm Password"}
+                              value = {values.confirmpassword}
+                              id = "confirmpassword"
+                              onChange = {handleChange}
+                              onBlur = {handleBlur}
+                              margin="normal"
+                            />
+                              <label>{touched.confirmpassword && values.confirmpassword !== values.password && <div className="invalid-feedback">{"Passwords don't match!"}</div>}
+                            </label>
+                          <p className = "password-check"> {error} </p>
+                          <br/>
+                          <div className = "buttons_group">
+                            <Button
+                              variant="contained"
+                              color="primary"
+                              className="submit button"
+                              type="submit"
+                              disabled={values.confirmpassword !== values.password || isSubmitting}> Submit
+                              </Button>
+                            <Button
+                              variant="contained"
+                              color="secondary"
+                              type="button"
+                              className="reset button"
+                              onClick={handleReset}
+                              disabled={!dirty}
+                            >
+                              Reset
+                            </Button>
+                          </div>
+
+                        </Form>
+                     )
+                  }
+                }
+        </Formik>
+      </div>
     </div>
   )
 }
