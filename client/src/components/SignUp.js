@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import { useMutation } from 'react-apollo-hooks';
 import {SIGN_UP_MUTATION} from "../gql/mutations"
-import LoginSignup from "./LoginSignup"
+import NavBar from "./NavBar"
 
 
 
@@ -17,7 +17,7 @@ function SignUp(props) {
   return (
     <div id = "signup">
       <div className="get-started">
-      <LoginSignup data = {props} />
+      <NavBar data = {props} />
         <Formik
             initialValues = {{ email: "", password: "", username: "", fullname: "", country: "", confirmpassword: '' }}
             onSubmit={async (values, {setSubmitting}) => {

@@ -3,7 +3,7 @@ import { useQuery } from 'react-apollo-hooks';
 // import ACTIONS from "../module/actions"
 // import { connect } from "react-redux"
 import {GET_ALL_LAUNCHES} from "../gql/queries"
-import LoginSignup from "./LoginSignup"
+import NavBar from "./NavBar"
 
 
   // const mapStateToProps = state => ({
@@ -28,7 +28,7 @@ function LandingPage(props) {
 
   return (
     <div className = "landing-page">
-    <LoginSignup data = {props}  />
+    <NavBar data = {props}  />
       <div>
         <h1 className = "header"> View launch details </h1>
          {

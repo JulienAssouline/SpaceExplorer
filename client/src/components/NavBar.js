@@ -1,10 +1,9 @@
 import React  from "react"
 import Button from '@material-ui/core/Button'
 
-function LoginSignup(props){
+function NavBar(props){
 
   const data = props.data
-      console.log(data)
 
 
   let login_class;
@@ -48,4 +47,4 @@ function LoginSignup(props){
     )
 }
 
-export default LoginSignup
+export default NavBar

@@ -1,11 +1,11 @@
 import React from "react"
-import LoginSignup from "./LoginSignup"
+import NavBar from "./NavBar"
 
 
 function Home(props) {
   return (
     <div className = "get-started">
-    <LoginSignup data = {props} />
+    <NavBar data = {props} />
     <h1> Home </h1>
     </div>
   )
