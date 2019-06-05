@@ -167,22 +167,46 @@ canvas {
 .form-button-container {
   display: flex;
   flex-flow: row;
-/*  position:absolute;
-*/  margin-top:10px;
   margin-left: auto;
-  margin-right: 50px;
+  margin-right: 20px;
   width: 20%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.space-explorer-text {
+  color: white;
+  margin-left: 20px;
+  align-self: flex-start;
+  cursor: pointer;
+}
+
+.my-trips {
+  margin-left: 420px;
+  color: white;
+  text-align: center;
+  cursor: pointer;
 }
 
 .signup-or-login {
   font-weight: normal;
-  margin-right: auto;
   color: white;
+  font-size: 30px;
 }
 
 .submit-button-container {
   display: flex;
   flex-flow: row;
+}
+.home-trip-container {
+  display: flex;
+  flex-flow: row;
+}
+
+.nav-bar{
+  display: flex;
+  flex-flow: row;
+  background-color: #2e4b4f;
 }
 
 
@@ -197,6 +221,11 @@ canvas {
 
 .member-status:hover {
   color: black;
+}
+
+.buy.item.button{
+  background-color: #55c4b9;
+  border-radius: 25px;
 }
 
 

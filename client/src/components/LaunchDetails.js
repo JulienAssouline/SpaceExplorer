@@ -3,6 +3,8 @@ import Button from '@material-ui/core/Button'
 import { useQuery, useMutation } from 'react-apollo-hooks';
 import {GET_USER, GET_LAUNCH} from "../gql/queries"
 import {BOOKINGS_MUTATION} from "../gql/mutations"
+import LoginSignup from "./LoginSignup"
+
 
 function LaunchDetails(props) {
   let flight_number = props.match.params.flightnumber
@@ -22,6 +24,7 @@ function LaunchDetails(props) {
 
   return (
     <div className="get-started">
+    <LoginSignup data = {props} />
     <h1> LaunchDetails </h1>
       <div className = "form">
         <p> {launch_data.getLaunch.flight_number} </p>

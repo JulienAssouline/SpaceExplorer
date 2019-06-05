@@ -1,17 +1,19 @@
 import React from "react"
 import { useQuery } from 'react-apollo-hooks';
-import ACTIONS from "../module/actions"
-import { connect } from "react-redux"
+// import ACTIONS from "../module/actions"
+// import { connect } from "react-redux"
 import {GET_ALL_LAUNCHES} from "../gql/queries"
+import LoginSignup from "./LoginSignup"
 
-  const mapStateToProps = state => ({
-    userEmail: state.userEmail,
-    username: state.username
-  })
 
-  const mapDispatchToProps = dispatch => ({
-    textInputChange: data => dispatch(ACTIONS.textInputChange(data))
-  })
+  // const mapStateToProps = state => ({
+  //   userEmail: state.userEmail,
+  //   username: state.username
+  // })
+
+  // const mapDispatchToProps = dispatch => ({
+  //   textInputChange: data => dispatch(ACTIONS.textInputChange(data))
+  // })
 
 function LandingPage(props) {
 
@@ -26,6 +28,7 @@ function LandingPage(props) {
 
   return (
     <div className = "landing-page">
+    <LoginSignup data = {props}  />
       <div>
         <h1 className = "header"> View launch details </h1>
          {
@@ -46,4 +49,5 @@ function LandingPage(props) {
   )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LandingPage)
+// export default connect(mapStateToProps, mapDispatchToProps)(LandingPage)
+export default LandingPage
