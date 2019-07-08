@@ -20,8 +20,6 @@ module.exports = {
       let status = "active"
       let country = input.country
 
-      console.log(input)
-
       const newUserInsert = {
         text: "INSERT INTO space_explorer.users (email, password, fullname, username, status, country) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
         values: [email, hashedpassword, fullname, username, status, country]

@@ -34,7 +34,6 @@ module.exports = {
 
         const oneLaunch = await axios.get("https://api.spacexdata.com/v2/launches?flight_number="+flight_number+"&filter=flight_number,mission_name,launch_year,launch_date_utc,details")
 
-        console.log(oneLaunch.data)
 
        return oneLaunch.data[0]
     },
@@ -48,14 +47,18 @@ module.exports = {
 
         const result = await postgres.query(user_booking)
 
-        result.rows.forEach
+        let promises = [];
 
-        // const oneLaunch = await axios.get("https://api.spacexdata.com/v2/launches?flight_number="+flight_number+"&filter=flight_number,mission_name,launch_year,launch_date_utc,details")
+        result.rows.forEach((d,i) => {
+          let urls = "https://api.spacexdata.com/v2/launches?flight_number="+d.flight_number+"&filter=flight_number,mission_name,launch_year,launch_date_utc,details"
+          promises.push(axios.get(urls))
+        })
 
+       const allPromises = await Promise.all(promises)
 
-        console.log(result.rows)
+       const results = allPromises.map((values) => { return values.data[0] })
 
-        return result.rows
+       return results
 
     },
   },

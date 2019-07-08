@@ -9,7 +9,7 @@ module.exports = gql`
     getUser: User,
     getLaunch(flight_number: Int): Launch,
     getAllLaunches: [Launch!]
-    getUserBookings: [UserBooking]
+    getUserBookings: [Launch!]
   }
 
   type User {

@@ -44,3 +44,14 @@ query {
      launch_date_utc
    }
  }
+
+ query {
+  getUserBookings {
+    flight_number
+    mission_name
+    launch_year
+    launch_date_utc
+    mission_patch_small
+    details
+  }
+}
