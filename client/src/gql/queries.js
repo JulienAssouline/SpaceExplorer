@@ -37,3 +37,16 @@ export const GET_USER = gql`
              details
            }
          }`;
+
+  export const GET_MY_BOOKINGS = gql`
+    query {
+      getUserBookings {
+        flight_number
+        mission_name
+        launch_year
+        launch_date_utc
+        mission_patch_small
+        details
+      }
+    }
+  `
