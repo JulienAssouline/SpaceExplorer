@@ -37,6 +37,26 @@ module.exports = {
         console.log(oneLaunch.data)
 
        return oneLaunch.data[0]
-    }
+    },
+    async getUserBookings(parent, input, { req, app, postgres }) {
+      const userId = authenticate(app, req);
+
+      const user_booking = {
+          text: "SELECT * FROM space_explorer.bookings WHERE user_id = $1",
+          values: [userId]
+        }
+
+        const result = await postgres.query(user_booking)
+
+        result.rows.forEach
+
+        // const oneLaunch = await axios.get("https://api.spacexdata.com/v2/launches?flight_number="+flight_number+"&filter=flight_number,mission_name,launch_year,launch_date_utc,details")
+
+
+        console.log(result.rows)
+
+        return result.rows
+
+    },
   },
 }

@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField'
 import { useMutation } from 'react-apollo-hooks';
 import { loginValidation } from "./validationSchemas"
 import {LOG_IN_MUTATION} from "../gql/mutations"
-import LoginSignup from "./LoginSignup"
+import NavBar from "./NavBar"
 
 function LogIn(props) {
   const [error, setError] = useState("");
@@ -15,7 +15,7 @@ function LogIn(props) {
   return (
     <div className = "login-form">
     <div className="get-started">
-    <LoginSignup data = {props} />
+    <NavBar data = {props} />
     <br />
       <Formik
               initialValues = {{ email: "", password: ""}}
