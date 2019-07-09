@@ -22,6 +22,10 @@ export const GET_USER = gql`
               launch_date_utc
               mission_patch_small
               details
+              video_link
+              site_name
+              rocket_name
+              rocket_type
               }
             }
           `

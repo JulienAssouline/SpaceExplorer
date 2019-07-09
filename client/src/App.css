@@ -10,6 +10,17 @@
   padding: 30px;
 }
 
+.form-user-bookings {
+  display: flex;
+  background-color: #2e4b4f;
+  flex-flow: column nowrap;
+  width: 40%;
+  padding: 30px;
+  justify-content: center;
+  border: 1px solid white;
+  border-radius: 10px;
+}
+
 .header {
   color: white;
 }
@@ -99,6 +110,30 @@ canvas {
   border-radius: 10px;
 /*  height: 100%;
 */}
+
+.user-bookings-page {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  justify-content: center;
+  width: 80%;
+  margin: auto;
+}
+
+.form-user-bookings {
+  display: flex;
+  margin: auto;
+  background-color: #2e4b4f;
+  padding: 30px;
+  justify-content: center;
+  border: 1px solid white;
+  border-radius: 10px;
+  width: 80%;
+}
+
+.user-bookings-text {
+  color: white;
+}
 
 .form label[data-shrink]{
   color: white;
@@ -227,6 +262,8 @@ canvas {
   background-color: #55c4b9;
   border-radius: 25px;
 }
+
+
 
 
 

@@ -32,10 +32,17 @@ module.exports = {
 
         let flight_number = input.flight_number
 
-        const oneLaunch = await axios.get("https://api.spacexdata.com/v2/launches?flight_number="+flight_number+"&filter=flight_number,mission_name,launch_year,launch_date_utc,details")
+        const oneLaunch = await axios.get("https://api.spacexdata.com/v2/launches?flight_number="+flight_number+"&filter=flight_number,mission_name,launch_year,launch_date_utc,links,launch_site,rocket,details")
 
+      const oneLaunchData = oneLaunch.data[0]
 
-       return oneLaunch.data[0]
+      oneLaunchData.mission_patch_small = oneLaunchData.links.mission_patch_small
+      oneLaunchData.video_link = oneLaunchData.links.video_link
+      oneLaunchData.site_name = oneLaunchData.launch_site.site_name
+      oneLaunchData.rocket_name = oneLaunchData.rocket.rocket_name
+      oneLaunchData.rocket_type = oneLaunchData.rocket.rocket_type
+
+       return oneLaunchData
     },
     async getUserBookings(parent, input, { req, app, postgres }) {
       const userId = authenticate(app, req);
@@ -50,13 +57,18 @@ module.exports = {
         let promises = [];
 
         result.rows.forEach((d,i) => {
-          let urls = "https://api.spacexdata.com/v2/launches?flight_number="+d.flight_number+"&filter=flight_number,mission_name,launch_year,launch_date_utc,details"
+          let urls = "https://api.spacexdata.com/v2/launches?flight_number="+d.flight_number+"&filter=flight_number,mission_name,launch_year,launch_date_utc,links,details"
           promises.push(axios.get(urls))
         })
 
        const allPromises = await Promise.all(promises)
 
        const results = allPromises.map((values) => { return values.data[0] })
+
+       results.forEach(d => {
+           d.mission_patch_small = d.links.mission_patch_small
+           d.site_name = d.launch_site.site_name
+       })
 
        return results
 

@@ -37,8 +37,11 @@ module.exports = gql`
     launch_year: Int,
     launch_date_utc: Date,
     mission_patch_small: String,
-    details: String
-
+    details: String,
+    video_link: String,
+    site_name: String,
+    rocket_name: String,
+    rocket_type: String
   }
 
   type Mutation {

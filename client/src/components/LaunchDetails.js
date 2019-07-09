@@ -22,14 +22,20 @@ function LaunchDetails(props) {
       return <div>Error! {error.message}</div>;
     };
 
+    console.log(launch_data)
+
   return (
     <div className="get-started">
     <NavBar data = {props} />
     <h1> LaunchDetails </h1>
       <div className = "form">
+        <img className ="image" src={launch_data.getLaunch.mission_patch_small} alt = "logo" width="10%" height="10%"/>
         <p> {launch_data.getLaunch.flight_number} </p>
         <p> {launch_data.getLaunch.launch_year} </p>
         <p> {launch_data.getLaunch.mission_name} </p>
+        <p> {launch_data.getLaunch.rocket_name} </p>
+        <p> {launch_data.getLaunch.rocket_type} </p>
+        <p> {launch_data.getLaunch.site_name} </p>
         <p className = "details"> {launch_data.getLaunch.details} </p>
         <Button
            onClick = {() => {
