@@ -22,31 +22,33 @@ function LaunchDetails(props) {
       return <div>Error! {error.message}</div>;
     };
 
-    console.log(launch_data)
-
   return (
     <div className="get-started">
     <NavBar data = {props} />
-    <h1> LaunchDetails </h1>
-      <div className = "form">
-        <img className ="image" src={launch_data.getLaunch.mission_patch_small} alt = "logo" width="10%" height="10%"/>
-        <p> {launch_data.getLaunch.flight_number} </p>
-        <p> {launch_data.getLaunch.launch_year} </p>
-        <p> {launch_data.getLaunch.mission_name} </p>
-        <p> {launch_data.getLaunch.rocket_name} </p>
-        <p> {launch_data.getLaunch.rocket_type} </p>
-        <p> {launch_data.getLaunch.site_name} </p>
-        <p className = "details"> {launch_data.getLaunch.details} </p>
-        <Button
-           onClick = {() => {
-            makeBooking({ variables: {flight_number: launch_data.getLaunch.flight_number}})
-           if (user_data === undefined) props.history.push("/login")
-            }
-          }
-           variant="contained"
-           type="submit"
-           color="primary"
-           className = "buy item button"> Book Trip </Button>
+      <div className = "form-details-container">
+        <div className = "form-details">
+          <div className = "image-title-container">
+            <h3 className = "details-headers"> {launch_data.getLaunch.mission_name} </h3>
+            <img className ="image-details" src={launch_data.getLaunch.mission_patch_small} alt = "logo" width="10%" height="10%"/>
+            <h3 className = "details-headers"> {launch_data.getLaunch.launch_year} </h3>
+          </div>
+          <div className = "launch-details-container">
+            <h2 className = "details-headers"> {`${launch_data.getLaunch.rocket_name} Rocket`} </h2>
+            <p className = "rocket-type-text"> {`Rocket type: ${launch_data.getLaunch.rocket_type}`} </p>
+            <p className = "site-name-text"> {`Location: ${launch_data.getLaunch.site_name}`} </p>
+            <p className = "details-text"> {`Details: ${launch_data.getLaunch.details}`} </p>
+            <Button
+               onClick = {() => {
+                makeBooking({ variables: {flight_number: launch_data.getLaunch.flight_number}})
+               if (user_data === undefined) props.history.push("/login")
+                }
+              }
+               variant="contained"
+               type="submit"
+               color="primary"
+               className = "buy item button"> Book Trip </Button>
+          </div>
+        </div>
       </div>
     </div>
   )
