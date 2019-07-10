@@ -16,7 +16,7 @@ function LaunchDetails(props) {
   const makeBooking = useMutation(BOOKINGS_MUTATION);
 
    if (loading) {
-      return <div>Loading...</div>;
+      return <div className = "get-started">Loading...</div>;
     };
     if (error) {
       return <div>Error! {error.message}</div>;
@@ -33,7 +33,7 @@ function LaunchDetails(props) {
             <h3 className = "details-headers"> {launch_data.getLaunch.launch_year} </h3>
           </div>
           <div className = "launch-details-container">
-            <h2 className = "details-headers"> {`${launch_data.getLaunch.rocket_name} Rocket`} </h2>
+            <h2 className = "mission-headers"> {`${launch_data.getLaunch.rocket_name} Rocket`} </h2>
             <p className = "rocket-type-text"> {`Rocket type: ${launch_data.getLaunch.rocket_type}`} </p>
             <p className = "site-name-text"> {`Location: ${launch_data.getLaunch.site_name}`} </p>
             <p className = "details-text"> {`Details: ${launch_data.getLaunch.details}`} </p>

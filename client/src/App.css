@@ -115,8 +115,8 @@ canvas {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto;
-  justify-content: center;
-  width: 80%;
+  justify-content: space-between;
+  width: 90%;
   margin: auto;
 }
 
@@ -292,6 +292,11 @@ canvas {
   color: white;
 }
 
+.mission-headers {
+  text-align: left;
+  color: white;
+}
+
 .details-text {
   text-align: left;
   color: white;
@@ -303,13 +308,22 @@ canvas {
   width: 50%;
   margin: auto;
   margin-top: 100px;
-  box-shadow: 0 0 10px #35575b;
+  box-shadow: 0 0 5px #35575b;
 
 }
 
 .form-details {
   display: flex;
   flex-flow: row nowrap;
+}
+
+.home-form-details {
+  display: flex;
+  flex-flow: row nowrap;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 100px;
+
 }
 
 .image-details {
