@@ -39,8 +39,14 @@ function LaunchDetails(props) {
             <p className = "details-text"> {`Details: ${launch_data.getLaunch.details}`} </p>
             <Button
                onClick = {() => {
-                makeBooking({ variables: {flight_number: launch_data.getLaunch.flight_number}})
-               if (user_data === undefined) props.history.push("/login")
+                  makeBooking({ variables: {flight_number: launch_data.getLaunch.flight_number}})
+                   if (user_data === undefined)
+                    {
+                      props.history.push("/login")
+                    }
+                   else {
+                      props.history.push("/home")
+                   }
                 }
               }
                variant="contained"
