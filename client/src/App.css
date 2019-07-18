@@ -250,12 +250,6 @@ width: 100%;
   cursor: pointer;
 }
 
-.my-trips {
-  margin-left: 420px;
-  color: white;
-  text-align: center;
-  cursor: pointer;
-}
 
 .signup-or-login {
   font-weight: normal;
@@ -277,6 +271,15 @@ width: 100%;
   flex-flow: row;
   background-color: #2e4b4f;
 }
+
+.my-trips {
+  position: absolute;             /* new */
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  cursor: pointer;
+}
+
 
 
 
