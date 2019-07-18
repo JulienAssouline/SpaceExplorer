@@ -7,6 +7,7 @@ import { loginValidation } from "./validationSchemas"
 import {LOG_IN_MUTATION} from "../gql/mutations"
 import NavBar from "./NavBar"
 
+
 function LogIn(props) {
   const [error, setError] = useState("");
 
@@ -14,7 +15,7 @@ function LogIn(props) {
 
   return (
     <div className = "login-form">
-    <div className="get-started">
+    <div id = "height-container" className="get-started">
     <NavBar data = {props} />
     <br />
       <Formik

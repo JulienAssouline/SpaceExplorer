@@ -1,18 +1,14 @@
-import React, { useState, useEffect, useLayoutEffect, useRef} from "react"
-import LandingPage from "./LandingPage"
+import React, { useEffect, useRef} from "react"
 
-let onLoad = true
 function Background2(props) {
-  console.log(onLoad)
-
 
     const canvas = useRef(null);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
       const context = canvas.current.getContext("2d");
 
-      context.width = document.body.clientWidth
-      context.height = document.body.clientHeight
+      context.width = window.innerWidth
+      context.height = 800
 
 
       var data = [];
@@ -42,14 +38,13 @@ function Background2(props) {
       //   }
       //   return Math.min(trueRadius, 1)
       // }
-    if (onLoad) {
 
       function drawCircles(data, velocity) {
 
               context.save();
               context.fillStyle = "#2e4b4f";
               // #29313b
-              context.fillRect(0, 0, document.body.clientWidth, 10000);
+              context.fillRect(0, 0, document.body.clientWidth, 800);
 
               data.forEach((d,i) => {
 
@@ -84,29 +79,19 @@ function Background2(props) {
 
             drawCircles(data, velocity)
 
-
-
-
             setInterval(function(){
               drawCircles(data, velocity);
-              // if (velocity > 4) {
-              //   velocity = -velocity
-              // }
-              // velocity += 0.3
+              if (velocity > 4) {
+                velocity = -velocity
+              }
+              velocity += 0.3
             }, 100);
 
-            onLoad = false
 
-          }
-
-
-
-
-  })
+  }, [])
 
   return (
-    <canvas ref={canvas} width={window.innerWidth} height={window.innerHeight} style = {{fill: "black"}}>
-          <LandingPage />
+    <canvas ref={canvas} width={window.innerWidth} height={800} style = {{fill: "black"}}>
     </canvas>
   )
 

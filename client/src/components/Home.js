@@ -9,8 +9,6 @@ function Home(props) {
 
   const {data, error, loading} = useQuery(GET_MY_BOOKINGS)
 
-  console.log(data)
-
   if (loading) {
       return <div>Loading...</div>;
     };

@@ -1,9 +1,10 @@
-import React from "react"
+import React, {useState} from "react"
 import { useQuery } from 'react-apollo-hooks';
 // import ACTIONS from "../module/actions"
 // import { connect } from "react-redux"
 import {GET_ALL_LAUNCHES} from "../gql/queries"
 import NavBar from "./NavBar"
+import Pagination from "./Pagination"
 
 
   // const mapStateToProps = state => ({
@@ -19,6 +20,9 @@ function LandingPage(props) {
 
   const {data, error, loading} = useQuery(GET_ALL_LAUNCHES)
 
+  const [currentPage, setCurrentPage] = useState(1)
+  const cardsPerPage = 9
+
   if (loading) {
       return <div>Loading...</div>;
     };
@@ -26,13 +30,56 @@ function LandingPage(props) {
       return <div>Error! {error.message}</div>;
     };
 
+    const indexOfLastCards = currentPage * cardsPerPage
+    const indexOfFirstCards = indexOfLastCards - cardsPerPage
+
+    console.log(data)
+
+    const paginatedData = data.getAllLaunches.filter((d,i) => {
+      return d.flight_number <= indexOfLastCards && indexOfFirstCards < d.flight_number
+    })
+
+    const number_of_pages = [];
+
+     for (let i = 1; i <= Math.ceil(data.getAllLaunches.length / cardsPerPage); i++) {
+       number_of_pages.push(i);
+     }
+
+     const max_pages = Math.max.apply(null, number_of_pages)
+     const min_pages = Math.min.apply(null, number_of_pages)
+
+  function handleCurrentPageClick(e) {
+    setCurrentPage(Number(e.target.innerHTML))
+   }
+
+  function handleNextClick(e, max) {
+   if (currentPage !== max) {
+     setCurrentPage(currentPage + 1)
+   }
+  }
+
+  function handleBackClick(e, min) {
+     if (currentPage !== min) {
+       setCurrentPage(currentPage - 1)
+     }
+  }
+
+  function handleEndClick(e, max) {
+   setCurrentPage(max)
+  }
+
+  function handleStartClick(e, min) {
+   setCurrentPage(min)
+  }
+
   return (
     <div className = "landing-page">
     <NavBar data = {props}  />
-      <div>
-        <h1 className = "header"> View launch details </h1>
+    <div id = "height-container">
+    <h1 className = "header"> Pick a Trip </h1>
+      <div id = "landing-page-container" className = "landing-page-container">
          {
-          data.getAllLaunches.map((d,i) =>
+          paginatedData.map((d,i) =>
                <div onClick = {() => {
                  props.history.push("/launch-details"+d.flight_number)
                }}
@@ -44,6 +91,17 @@ function LandingPage(props) {
                </div>
              )
           }
+          </div>
+          <Pagination
+            maxmin = {{max: max_pages, min: min_pages}}
+            handleBackClick = {handleBackClick}
+            handleNextClick = {handleNextClick}
+            currentPage = {currentPage}
+            pages = {number_of_pages}
+            handleCurrentPageClick = {handleCurrentPageClick}
+            handleEndClick ={handleEndClick}
+            handleStartClick = {handleStartClick}
+           />
         </div>
       </div>
   )
