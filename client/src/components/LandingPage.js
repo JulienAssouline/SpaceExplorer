@@ -30,13 +30,16 @@ function LandingPage(props) {
       return <div>Error! {error.message}</div>;
     };
 
-    const indexOfLastCards = currentPage * cardsPerPage
-    const indexOfFirstCards = indexOfLastCards - cardsPerPage
+    data.getAllLaunches.sort((a, b) => b.launch_year - a.launch_year);
 
     console.log(data)
 
+
+    const indexOfLastCards = currentPage * cardsPerPage
+    const indexOfFirstCards = indexOfLastCards - cardsPerPage
+
     const paginatedData = data.getAllLaunches.filter((d,i) => {
-      return d.flight_number <= indexOfLastCards && indexOfFirstCards < d.flight_number
+      return i <= indexOfLastCards && indexOfFirstCards < i
     })
 
     const number_of_pages = [];
@@ -45,8 +48,10 @@ function LandingPage(props) {
        number_of_pages.push(i);
      }
 
-     const max_pages = Math.max.apply(null, number_of_pages)
-     const min_pages = Math.min.apply(null, number_of_pages)
+   const max_pages = Math.max.apply(null, number_of_pages)
+   const min_pages = Math.min.apply(null, number_of_pages)
+
+
 
   function handleCurrentPageClick(e) {
     setCurrentPage(Number(e.target.innerHTML))
@@ -76,7 +81,7 @@ function LandingPage(props) {
     <div className = "landing-page">
     <NavBar data = {props}  />
     <div id = "height-container">
-    <h1 className = "header"> Pick a Trip </h1>
+    <h1 className = "header"> Available Trips </h1>
       <div id = "landing-page-container" className = "landing-page-container">
          {
           paginatedData.map((d,i) =>

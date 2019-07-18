@@ -47,24 +47,35 @@ width: 100%;
   color: white;
 }
 
+
+.landing-page-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  justify-content: center;
+  grid-gap: 20px;
+  width: 80%;
+  margin: auto;
+}
+
+
 .all-launches {
   display: flex;
   flex-flow: row nowrap;
   justify-content: left;
   align-items: center;
-  margin: 10px;
-  background-color: #2e4b4f;
+  background-color: #273f43;
   cursor: pointer;
-  border: 1px solid white;
-  border-radius: 10px;
-/*  box-shadow: 0 0 10px #ccc;
-*/
+  border-radius: 0px;
+  height: 120px;
   padding: 10px;
+  box-shadow: 0 0 10px #35575b;
 }
 
 .image {
   width: 30%;
   padding-right: 20px;
+  height: 100%;
 }
 
 .mission_name {
@@ -106,14 +117,6 @@ width: 100%;
     width: 100%;
     height: 100%;
 }
-
-.landing-page-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: auto;
-  justify-content: center;
-}
-
 .get-started {
   position:absolute; top:0px; left:0px;
     width: 100%;
@@ -367,56 +370,64 @@ width: 100%;
   flex-flow: row;
   justify-content: center;
   align-items: center;
+  width: fit-content;
+  background-color: #273f43;
+  margin: auto;
+  margin-top: 30px;
+  border-radius: 3px;
+  box-shadow: 0 0 10px #35575b;
+  height: 60px;
+}
+
+.pagination-details-container {
+  background-color: #2e4b4f;
+  margin: auto;
 }
 
 .page-container {
-  border-right: 1px solid lightgrey;
   padding: 10px;
-  color: black;
-  height: 45px;
+  color: white;
   cursor: pointer;
-  width: 3%;
+  width: 50%;
   text-align: center;
 }
 
 .page-container.active {
-  background-color: #c22c28;
   color: white;
   cursor: pointer;
-  width: 3%;
+  width: 50%;
   text-align: center;
+  border: 2px solid white;
+  font-weight: bold;
 }
 
 .next {
-  padding: 10px;
-  height: 45px;
-  border-right: 1px solid lightgrey;
+  color: white;
+  padding: 20px;
   cursor: pointer;
   width: 3%;
   text-align: center;
 }
 
 .back {
-  padding: 10px;
-  height: 45px;
-  border-right: 1px solid lightgrey;
+  color: white;
+  padding: 20px;
   cursor: pointer;
   width: 3%;
   text-align: center;
 }
 
 .start{
-  padding: 10px;
-  height: 45px;
-  border-right: 1px solid lightgrey;
+  color: white;
+  padding: 20px;
   cursor: pointer;
   width: 3%;
   text-align: center;
 }
 
 .end {
-  padding: 10px;
-  height: 45px;
+  color: white;
+  padding: 20px;
   cursor: pointer;
   width: 3%;
   text-align: center;
