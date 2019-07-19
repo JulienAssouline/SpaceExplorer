@@ -30,8 +30,8 @@ function App() {
         <ReduxProvider store = {reduxStore}>
         <div className="App">
           <Router>
-            <Route path = "/" component = {Background2} />
             <Route path="/" exact component = {GetStarted} />
+            <Route path = "/" component = {Background2} />
           <div className="wrapper">
             <Route path="/landing-page" exact component = {LandingPage} />
           </div>

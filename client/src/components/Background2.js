@@ -8,7 +8,7 @@ function Background2(props) {
       const context = canvas.current.getContext("2d");
 
       context.width = window.innerWidth
-      context.height = 800
+      context.height = 750
 
 
       var data = [];
@@ -22,29 +22,12 @@ function Background2(props) {
           });
       }
 
-      // function circleRadius(d, velocity) {
-
-      //   let radius = (0 - velocity)
-
-      //   let trueRadius;
-
-      //   if (radius < 0) {
-      //   trueRadius = (velocity - radius)
-      //   } else if (Math.min(trueRadius, 1) === 1) {
-      //    trueRadius = radius - velocity
-      //   }
-      //   else {
-      //     trueRadius = radius
-      //   }
-      //   return Math.min(trueRadius, 1)
-      // }
-
       function drawCircles(data, velocity) {
 
               context.save();
               context.fillStyle = "#2e4b4f";
-              // #29313b
-              context.fillRect(0, 0, document.body.clientWidth, 800);
+
+              context.fillRect(0, 0, document.body.clientWidth, 750);
 
               data.forEach((d,i) => {
 
@@ -91,7 +74,7 @@ function Background2(props) {
   }, [])
 
   return (
-    <canvas ref={canvas} width={window.innerWidth} height={800} style = {{fill: "black"}}>
+    <canvas className = "canvas" ref={canvas} width={window.innerWidth} height={750} style = {{fill: "black"}}>
     </canvas>
   )
 
