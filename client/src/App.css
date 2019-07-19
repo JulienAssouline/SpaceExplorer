@@ -79,7 +79,7 @@ width: 100%;
 }
 
 .mission_name {
-  color: white;
+  color: #e5e5e5;
 }
 
 .buttons_group{
@@ -389,23 +389,23 @@ width: 100%;
 
 .page-container {
   padding: 10px;
-  color: white;
+  color: #e5e5e5;
   cursor: pointer;
   width: 50%;
   text-align: center;
 }
 
 .page-container.active {
-  color: white;
+  color: #e5e5e5;
   cursor: pointer;
   width: 50%;
   text-align: center;
-  border: 2px solid white;
+  border: 2px solid #e5e5e5;
   font-weight: bold;
 }
 
 .next {
-  color: white;
+  color: #e5e5e5;
   padding: 20px;
   cursor: pointer;
   width: 3%;
@@ -413,7 +413,7 @@ width: 100%;
 }
 
 .back {
-  color: white;
+  color: #e5e5e5;
   padding: 20px;
   cursor: pointer;
   width: 3%;
@@ -421,7 +421,7 @@ width: 100%;
 }
 
 .start{
-  color: white;
+  color: #e5e5e5;
   padding: 20px;
   cursor: pointer;
   width: 3%;
@@ -429,7 +429,7 @@ width: 100%;
 }
 
 .end {
-  color: white;
+  color: #e5e5e5;
   padding: 20px;
   cursor: pointer;
   width: 3%;

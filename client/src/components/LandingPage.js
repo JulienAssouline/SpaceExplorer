@@ -51,8 +51,6 @@ function LandingPage(props) {
    const max_pages = Math.max.apply(null, number_of_pages)
    const min_pages = Math.min.apply(null, number_of_pages)
 
-
-
   function handleCurrentPageClick(e) {
     setCurrentPage(Number(e.target.innerHTML))
    }
