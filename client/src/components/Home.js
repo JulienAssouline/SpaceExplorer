@@ -16,6 +16,7 @@ function Home(props) {
       return <div>Loading...</div>;
     };
     if (error) {
+      props.history.push("/login")
       return <div>Error! {error.message}</div>;
     };
 

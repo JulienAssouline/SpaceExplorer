@@ -5,8 +5,8 @@ import { ReactComponent as Logo } from './project.svg';
 
 function GetStarted(props) {
   return (
-  <div className = "first-wrapper">
   <div className="wrapper">
+   <div className = "get-started">
     <div className = "form-started">
       <Logo />
       <h1 className = "header"> Get Ready For Your Next Great Journey With SpaceX </h1>
@@ -17,7 +17,7 @@ function GetStarted(props) {
          color="primary"
          className = "buy item button"> Get Started </Button>
     </div>
-   </div>
+    </div>
    </div>
   )
 }

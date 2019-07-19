@@ -44,6 +44,7 @@ module.exports = {
     },
     async getUserBookings(parent, input, { req, app, postgres }) {
       const userId = authenticate(app, req);
+      console.log(userId)
 
       const user_booking = {
           text: "SELECT * FROM space_explorer.bookings WHERE user_id = $1",
