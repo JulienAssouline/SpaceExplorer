@@ -8,7 +8,7 @@ function Background2(props) {
       const context = canvas.current.getContext("2d");
 
       context.width = window.innerWidth
-      context.height = 750
+      context.height = 850
 
 
       var data = [];
@@ -27,7 +27,7 @@ function Background2(props) {
               context.save();
               context.fillStyle = "#2e4b4f";
 
-              context.fillRect(0, 0, document.body.clientWidth, 750);
+              context.fillRect(0, 0, document.body.clientWidth, 850);
 
               data.forEach((d,i) => {
 
@@ -74,7 +74,7 @@ function Background2(props) {
   }, [])
 
   return (
-    <canvas className = "canvas" ref={canvas} width={window.innerWidth} height={750} style = {{fill: "black"}}>
+    <canvas className = "canvas" ref={canvas} width={window.innerWidth} height={850} style = {{fill: "black"}}>
     </canvas>
   )
 

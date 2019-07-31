@@ -11,8 +11,8 @@ const typeDefs = require('./schema')
 let resolvers = require('./resolvers')
 
 const app = express()
-const PORT = process.env.PORT || 8080
-app.set('PORT', process.env.PORT || 8080)
+const PORT = process.env.PORT || 8082
+app.set('PORT', process.env.PORT || 8082)
 app.set('PG_HOST', process.env.PG_HOST || 'localhost')
 app.set('PG_USER', process.env.PG_USER || 'postgres')
 app.set('PG_PASSWORD', process.env.PG_PASSWORD || '')
@@ -52,7 +52,7 @@ const schema = makeExecutableSchema({
 const apolloServer = new ApolloServer({
   context: ({ req }) => {
     if (
-      req.headers.referer === 'http://localhost:8080/graphql' &&
+      req.headers.referer === 'http://localhost:8082/graphql' &&
       process.env.NODE_ENV !== 'production'
     ) {
       app.set('SKIP_AUTH', true)
