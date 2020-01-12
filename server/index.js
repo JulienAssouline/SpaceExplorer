@@ -1,89 +1,96 @@
-const express = require('express')
-const cookieParser = require('cookie-parser')
-const chalk = require('chalk')
-const cors = require('cors')
-const path = require('path')
-const { ApolloServer } = require('apollo-server-express')
-const { makeExecutableSchema } = require('graphql-tools')
+const express = require("express");
+const cookieParser = require("cookie-parser");
+const chalk = require("chalk");
+const cors = require("cors");
+const path = require("path");
+const { ApolloServer } = require("apollo-server-express");
+const { makeExecutableSchema } = require("graphql-tools");
 
-const postgres = require('./config/postgres')
-const typeDefs = require('./schema')
-let resolvers = require('./resolvers')
+const postgres = require("./config/postgres");
+const typeDefs = require("./schema");
+let resolvers = require("./resolvers");
 
-const app = express()
-const PORT = process.env.PORT || 8082
-app.set('PORT', process.env.PORT || 8082)
-app.set('PG_HOST', process.env.PG_HOST || 'localhost')
-app.set('PG_USER', process.env.PG_USER || 'postgres')
-app.set('PG_PASSWORD', process.env.PG_PASSWORD || '')
-app.set('PG_DB', process.env.PG_DB || 'postgres')
-app.set('JWT_SECRET', process.env.JWT_SECRET || 'DEV_SECRET')
+const app = express();
+const PORT = process.env.PORT || 8082;
+app.set("PORT", process.env.PORT || 8082);
+app.set("PG_HOST", process.env.PG_HOST || "localhost");
+app.set("PG_USER", process.env.PG_USER || "postgres");
+app.set("PG_PASSWORD", process.env.PG_PASSWORD || "");
+app.set("PG_DB", process.env.PG_DB || "postgres");
+app.set("JWT_SECRET", process.env.JWT_SECRET || "DEV_SECRET");
 
-app.set('JWT_COOKIE_NAME', 'token')
-app.use(cookieParser())
+app.set("JWT_COOKIE_NAME", "token");
+app.use(cookieParser());
 
-if (process.env.NODE_ENV === 'production') {
-  const root = path.resolve(__dirname, '../public')
+if (process.env.NODE_ENV === "production") {
+  // const root = path.resolve(__dirname, "../public");
 
   // Serve the static front-end from /public when deployed
-  app.use(express.static(root))
-  app.use(fallback('index.html', { root }))
+  app.use(express.static("public"));
+  // app.use(fallback("index.html", { root }));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "public", "index.html"));
+  });
 }
 
-if (process.env.NODE_ENV !== 'production') {
-  // Allow requests from dev server address
+if (process.env.NODE_ENV !== "production") {
+  // Using the cors middleware, the server sets the correct HTTP header enabling cross-origin resource sharing
   const corsConfig = {
-    origin: 'http://localhost:3000',
-    credentials: true,
-  }
-  app.set('CORS_CONFIG', corsConfig)
+    origin: "http://localhost:3000",
+    credentials: true
+  };
+  app.set("CORS_CONFIG", corsConfig);
 
   // Allow requests from dev server address
-  app.use(cors(corsConfig))
+  app.use(cors(corsConfig));
 }
 
-resolvers = resolvers()
+resolvers = resolvers();
 
 const schema = makeExecutableSchema({
   typeDefs,
-  resolvers,
-})
+  resolvers
+});
 
 const apolloServer = new ApolloServer({
   context: ({ req }) => {
     if (
-      req.headers.referer === 'http://localhost:8082/graphql' &&
-      process.env.NODE_ENV !== 'production'
+      req.headers.referer === "http://localhost:8082/graphql" &&
+      process.env.NODE_ENV !== "production"
     ) {
-      app.set('SKIP_AUTH', true)
+      app.set("SKIP_AUTH", true);
     } else {
-      app.set('SKIP_AUTH', false)
+      app.set("SKIP_AUTH", false);
     }
     return {
       app,
       req,
-      postgres,
-    }
+      postgres
+    };
   },
-  schema,
-})
+  schema
+});
 
 apolloServer.applyMiddleware({
   app,
-  cors: app.get('CORS_CONFIG'),
-})
+  cors: app.get("CORS_CONFIG")
+});
 
-postgres.on('error', (err, client) => {
-  console.error('Unexpected error on idle postgres client', err)
-  process.exit(-1)
-})
+postgres.on("error", (err, client) => {
+  console.error("Unexpected error on idle postgres client", err);
+  process.exit(-1);
+});
 
 const server = app.listen(PORT, () => {
-  console.log(`>> ${chalk.blue('Express running:')} http://localhost:${PORT}`)
+  console.log(`>> ${chalk.blue("Express running:")} http://localhost:${PORT}`);
 
-  console.log(`>> ${chalk.magenta('GraphQL playground:')} http://localhost:${PORT}/graphql`)
-})
+  console.log(
+    `>> ${chalk.magenta(
+      "GraphQL playground:"
+    )} http://localhost:${PORT}/graphql`
+  );
+});
 
-server.on('error', err => {
-  console.log(err)
-})
+server.on("error", err => {
+  console.log(err);
+});
