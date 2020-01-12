@@ -23,13 +23,18 @@ app.set("JWT_COOKIE_NAME", "token");
 app.use(cookieParser());
 
 if (process.env.NODE_ENV === "production") {
-  // const root = path.resolve(__dirname, "../public");
+  const root = path.resolve(__dirname, "../client/build");
 
   // Serve the static front-end from /public when deployed
-  app.use(express.static("public"));
-  // app.use(fallback("index.html", { root }));
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "public", "index.html"));
+  app.use(express.static(root));
+  app.get("/*", function(req, res) {
+    res.sendFile(path.join(__dirname, "../client/build/index.html"), function(
+      err
+    ) {
+      if (err) {
+        res.status(500).send(err);
+      }
+    });
   });
 }
 
