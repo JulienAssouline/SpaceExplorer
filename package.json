@@ -1,9 +1,18 @@
 {
   "name": "space_explorer",
   "version": "1.0.0",
-  "description": "space explorer app ",
+  "description": "space explorer app",
   "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
   "repository": "git@github.com:JulienAssouline/SpaceExplorer.git",
   "author": "Julien Assouline",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "engines": {
+    "node": "^13.6.0"
+  }
 }
